@@ -34,16 +34,7 @@ git clone https://github.com/HOChiaChun/S2-3-A21-restaurant-list.git
 
 5. 開啟程式
 
-<<<<<<< HEAD
-```
-即啟動完成，可至[http://localhost:3000](http://localhost:3000)開始使用程式
-```
-=======
 即啟動完成，可至 http://localhost:3000 進入首頁
-
->>>>>>> 4666b29 (add start url)
-
-
 
 ## 功能描述 (features)
 
@@ -51,3 +42,4 @@ git clone https://github.com/HOChiaChun/S2-3-A21-restaurant-list.git
 2. 點擊小卡提供餐廳相關資訊 (電話,地址...)
 3. 提供快速查覽功能
 
+ 
