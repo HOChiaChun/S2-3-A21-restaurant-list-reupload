@@ -39,5 +39,5 @@ app.get("/search", (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(`This Web Server is on : http://localhost/${port}`)
+  console.log(`This Web Server is on : http://localhost:${port}`)
 })
