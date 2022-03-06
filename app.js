@@ -1,9 +1,11 @@
 const express = require("express") 
-const app = express()
-const port = 3000
 const exphbs = require("express-handlebars")
 const mongoose = require("mongoose")
 const Restaurant = require("./models/restaurant")
+const bodyParser = require("body-parser")
+
+const app = express()
+const port = 3000
 
 mongoose.connect("mongodb://localhost/restaurant-list")
 
@@ -22,6 +24,8 @@ app.set("view engine", "handlebars")
 
 app.use(express.static("public"))
 
+app.use(bodyParser.urlencoded({ extended: true }))
+
 
 app.get("/", (req, res) => {
   Restaurant.find()
@@ -32,6 +36,22 @@ app.get("/", (req, res) => {
 
 app.get("/restaurants/new", (req, res) => {
   return res.render("new")
+})
+
+app.post("/restaurants", (req, res) => {
+  const name = req.body.name
+  const name_en = req.body.name_en
+  const category = req.body.category
+  const image = req.body.image
+  const location = req.body.location
+  const phone = req.body.phone
+  const google_map = req.body.google_map
+  const rating = req.body.rating
+  const description = req.body.description
+  return Restaurant.create({
+    name, name_en, category, image, location, phone, google_map, rating, description})
+    .then(() => res.redirect("/"))
+    .catch(error => console.log(error))
 })
 
 app.get("/restaurants/:restaurant_id", (req, res) => {
