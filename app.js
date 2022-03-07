@@ -114,12 +114,6 @@ app.get("/search", (req, res) => {
 })
 
 
-app.get("/search", (req, res) => {
-  const keyword = req.query.keyword.trim()
-  const restaurants = restaurantList.results.filter(restaurant => restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.includes(keyword))
-  res.render("index", { restaurants, keyword })
-})
-
 
 app.listen(port, () => {
   console.log(`This Web Server is on : http://localhost:${port}`)
