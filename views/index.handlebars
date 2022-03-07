@@ -15,7 +15,7 @@
     </div>
   </div>
 </div>
-<div>
+<div style="padding-top: 30px;">
   <a href="/restaurants/new">
     <button  type="button" class="btn btn-primary" style="margin-left: 160px">Create</button>
   </a>
@@ -27,6 +27,7 @@
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
         {{#each restaurants}}
+        <div style="display: inline-block;">
           <div class="card mb-3" style="margin-top: 20px;">
             <img class="card-img-top" src={{this.image}}
               alt={{this.name}} >
@@ -43,14 +44,18 @@
               </span>
             </div>
           </div>
-          <div>
-            <span style="display: inline-block;">
+          <span>
+            <span style="display: inline-block; margin-right: 2px;">
               <a href="/restaurants/{{this._id}}/edit" class="text-secondary">edit</a>
             </span>
             <span style="display: inline-block;">
               <a href="/restaurants/{{this._id}}" class="text-secondary">Detail</a>
             </span>
-          </div>
+            <form action="/restaurants/{{ this._id }}/delete" method="POST" style="display:inline" ;>
+              <button type="submit" class="btn btn-primary">delete</button>
+            </form>
+          </span>
+        </div>
         {{/each}}
       </div>
     </div>

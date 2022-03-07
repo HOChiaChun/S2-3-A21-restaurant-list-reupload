@@ -4,6 +4,7 @@ const mongoose = require("mongoose")
 const Restaurant = require("./models/restaurant")
 const bodyParser = require("body-parser")
 const restaurant = require("./models/restaurant")
+const res = require("express/lib/response")
 
 const app = express()
 const port = 3000
@@ -95,6 +96,14 @@ app.post("/restaurants/:restaurant_id/edit", (req, res) => {
       return restaurant.save()
     })
     .then(() => res.redirect(`/restaurants/${id}`)) 
+    .catch(error => console.log(error))
+})
+
+app.post("/restaurants/:restaurant_id/delete", (req, res) => {
+  const id = req.params.restaurant_id
+  return Restaurant.findById(id)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect("/"))
     .catch(error => console.log(error))
 })
 
