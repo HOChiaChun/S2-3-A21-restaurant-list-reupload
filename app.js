@@ -3,7 +3,6 @@ const exphbs = require("express-handlebars")
 const mongoose = require("mongoose")
 const Restaurant = require("./models/restaurant")
 const bodyParser = require("body-parser")
-const restaurant = require("./models/restaurant")
 
 const app = express()
 const port = 3000
@@ -112,9 +111,15 @@ app.get("/search", (req, res) => {
     .lean()
     .then(restaurants => res.render("index", { restaurants, keyword }))
     .catch(error => console.log(error))
-  /*const restaurants = restaurantList.results.filter(restaurant => restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.includes(keyword))
-  res.render("index", { restaurants, keyword })*/
 })
+
+
+app.get("/search", (req, res) => {
+  const keyword = req.query.keyword.trim()
+  const restaurants = restaurantList.results.filter(restaurant => restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.includes(keyword))
+  res.render("index", { restaurants, keyword })
+})
+
 
 app.listen(port, () => {
   console.log(`This Web Server is on : http://localhost:${port}`)
