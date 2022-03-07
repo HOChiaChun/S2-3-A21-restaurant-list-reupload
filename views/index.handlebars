@@ -43,9 +43,14 @@
               </span>
             </div>
           </div>
-          <a href="/restaurants/{{this._id}}" class="text-secondary">
-            <span style="padding: 150px;">Detail</span>
-          </a>
+          <div>
+            <span style="display: inline-block;">
+              <a href="/restaurants/{{this._id}}/edit" class="text-secondary">edit</a>
+            </span>
+            <span style="display: inline-block;">
+              <a href="/restaurants/{{this._id}}" class="text-secondary">Detail</a>
+            </span>
+          </div>
         {{/each}}
       </div>
     </div>
