@@ -4,7 +4,6 @@ const mongoose = require("mongoose")
 const Restaurant = require("./models/restaurant")
 const bodyParser = require("body-parser")
 const restaurant = require("./models/restaurant")
-const res = require("express/lib/response")
 
 const app = express()
 const port = 3000
@@ -109,8 +108,12 @@ app.post("/restaurants/:restaurant_id/delete", (req, res) => {
 
 app.get("/search", (req, res) => {
   const keyword = req.query.keyword.trim()
-  const restaurants = restaurantList.results.filter(restaurant => restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.includes(keyword))
-  res.render("index", { restaurants, keyword })
+  Restaurant.find({ name: { $regex: keyword, $options: "i" } })
+    .lean()
+    .then(restaurants => res.render("index", { restaurants, keyword }))
+    .catch(error => console.log(error))
+  /*const restaurants = restaurantList.results.filter(restaurant => restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.includes(keyword))
+  res.render("index", { restaurants, keyword })*/
 })
 
 app.listen(port, () => {
