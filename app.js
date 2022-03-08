@@ -59,6 +59,7 @@ app.get("/restaurants/:restaurant_id", (req, res) => {
   return Restaurant.findById(id)
     .lean()
     .then(restaurant => res.render("show", { restaurant }))
+    .catch(error => console.log(error))
 })
 
 app.get("/restaurants/:restaurant_id/edit", (req, res) => {
