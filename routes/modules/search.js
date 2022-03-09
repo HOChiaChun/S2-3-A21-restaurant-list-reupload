@@ -10,10 +10,16 @@ router.get("/search", (req, res) => {
 
   switch (sort) {
     case "A > Z":
-      mode = 'asc'
+      mode = "asc"
       break;
     case "Z > A":
-      mode = 'desc'
+      mode = "desc"
+      break;
+    case "類別":
+      mode =  1
+      break;
+    case "地區":
+      mode = -1
       break;
   }
 
@@ -21,7 +27,7 @@ router.get("/search", (req, res) => {
     Restaurant.find()
       .lean()
       .sort({ name: mode })
-      .then(restaurants => res.render("index", { restaurants, sort }))
+      .then(restaurants => res.render("index", { restaurants}))
       .catch(error => console.log(error))
   } else {
     Restaurant.find({ name: { $regex: keyword, $options: "i" } })
