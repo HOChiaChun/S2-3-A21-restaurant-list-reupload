@@ -1,15 +1,7 @@
-const mongoose = require("mongoose");
 const Restaurant = require("../restaurant")
 const restaurantList = require("../../restaurant.json")
+const db = require("../../config/mongoose")
 
-
-mongoose.connect("mongodb://localhost/restaurant-list", { useNewUrlParser: true, useUnifiedTopology: true }) 
-
-const db = mongoose.connection
-
-db.on("rerror", () => {
-  console.log("mongodb error!")
-})
 
 db.once("open", () => {
   console.log("mongodb connected!")
