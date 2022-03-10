@@ -21,10 +21,10 @@ router.get("/search", (req, res) => {
       .sort({ name: "desc" })
       .then(restaurants => res.render("index", { restaurants, sort2:sort }))
       .catch(error => console.log(error))
-  } else if (!req.query.keyword && sort === "評分") {
+  } else if (!req.query.keyword && sort === "類別") {
     Restaurant.find()
       .lean()
-      .sort({ rating: -1 })
+      .sort({ category: -1 })
       .then(restaurants => res.render("index", { restaurants, sort3:sort }))
       .catch(error => console.log(error))
   } else if (!req.query.keyword && sort === "地區") {
