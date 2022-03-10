@@ -8,26 +8,30 @@ router.get("/search", (req, res) => {
   const sort = req.query.sort 
   const keyword = req.query.keyword.trim()
 
-  switch (sort) {
-    case "A > Z":
-      mode = "asc"
-      break;
-    case "Z > A":
-      mode = "desc"
-      break;
-    case "類別":
-      mode =  1
-      break;
-    case "地區":
-      mode = -1
-      break;
-  }
 
-  if (!req.query.keyword) {
+  if (!req.query.keyword && sort === "Ａ > Z") {
     Restaurant.find()
       .lean()
-      .sort({ name: mode })
+      .sort({ name: "asc" })
       .then(restaurants => res.render("index", { restaurants}))
+      .catch(error => console.log(error))
+  } else if (!req.query.keyword && sort === "Z > A") {
+    Restaurant.find()
+      .lean()
+      .sort({ name: "desc" })
+      .then(restaurants => res.render("index", { restaurants }))
+      .catch(error => console.log(error))
+  } else if (!req.query.keyword && sort === "評分") {
+    Restaurant.find()
+      .lean()
+      .sort({ rating: -1 })
+      .then(restaurants => res.render("index", { restaurants }))
+      .catch(error => console.log(error))
+  } else if (!req.query.keyword && sort === "地區") {
+    Restaurant.find()
+      .lean()
+      .sort({ location: 1 })
+      .then(restaurants => res.render("index", { restaurants }))
       .catch(error => console.log(error))
   } else {
     Restaurant.find({ name: { $regex: keyword, $options: "i" } })
