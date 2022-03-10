@@ -11,10 +11,10 @@
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
           </div>
           <select class="form-control" name="sort" staria-label="Default select example" style="margin-left: 10px;">
-            <option>A > Z</option>
-            <option>Z > A</option>
-            <option>評分</option>
-            <option>地區</option>
+            <option {{#if sort1}}selected{{/if}}>A > Z</option>
+            <option {{#if sort2}}selected{{/if}}>Z > A</option>
+            <option {{#if sort3}}selected{{/if}}>評分</option>
+            <option {{#if sort4}}selected{{/if}}>地區</option>
           </select>
         </div>
       </form>
