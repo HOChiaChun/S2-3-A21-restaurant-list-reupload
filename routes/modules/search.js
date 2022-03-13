@@ -23,16 +23,25 @@ router.get("/search", (req, res) => {
       break;
   }
 
-  Restaurant.find()
+  Restaurant.find({ $or: [{ name: { $regex: keyword, $options: 'i' } }, 
+                          { category: { $regex: keyword, $options: 'i' } }] 
+                  })
       .lean()
       .sort(mode)
-      .then(restaurants => {
-        const restaurantsfilter = restaurants.filter(restaurant => restaurant.name.toLowerCase().includes(keyword) || restaurant.category.includes(keyword))
-        res.render("index", { restaurants: restaurantsfilter, keyword, sort})
-      })
+      .then( restaurants => res.render("index", { restaurants, keyword, sort}))
       .catch(error => console.log(error))
 })
  
 
 
 module.exports = router
+
+
+/*Restaurant.find()
+      .lean()
+      .sort(mode)
+      .then(restaurants => {
+        const restaurantsfilter = restaurants.filter(restaurant => restaurant.name.toLowerCase().includes(keyword) || restaurant.category.includes(keyword))
+        res.render("index", { restaurants: restaurantsfilter, keyword, sort})
+      })
+      .catch(error => console.log(error))*/
