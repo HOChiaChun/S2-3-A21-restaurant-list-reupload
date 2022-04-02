@@ -6,6 +6,7 @@ const Restaurant = require("../../models/restaurant")
 
 router.get("/", (req, res) => {
   const userId = req.user._id
+  console.log(userId)
   Restaurant.find({ userId })
     .lean()
     .then(restaurants => res.render("index", { restaurants }))
