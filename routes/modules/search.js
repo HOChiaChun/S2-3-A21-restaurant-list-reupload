@@ -26,12 +26,11 @@ router.get("/search", (req, res) => {
   }
 
   Restaurant.find({ userId, $or: [{ name: { $regex: keyword, $options: 'i' } }, 
-                          { category: { $regex: keyword, $options: 'i' } }
-                         ] 
+                          { category: { $regex: keyword, $options: 'i' } }] 
                   })
       .lean()
       .sort(mode)
-      .then( restaurants => res.render("index", { restaurants, keyword, sort}))
+      .then( restaurants => res.render("index", { restaurants, keyword, sort }))
       .catch(error => console.log(error))
 })
  

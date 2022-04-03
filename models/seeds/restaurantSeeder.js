@@ -40,7 +40,7 @@ db.once("open", () => {
       ))
     })
     .then(() => {
-      console.log("done")
+      process.exit()
     })
   bcrypt
     .genSalt(10)
