@@ -10,15 +10,7 @@ router.get("/new", (req, res) => {
 
 router.post("/", (req, res) => {
   const userId = req.user._id
-  const name = req.body.name
-  const name_en = req.body.name_en
-  const category = req.body.category
-  const image = req.body.image
-  const location = req.body.location
-  const phone = req.body.phone
-  const google_map = req.body.google_map
-  const rating = req.body.rating
-  const description = req.body.description
+  const { name, name_en, category, image, location, phone, google_map, rating, description} = req.body
   return Restaurant.create({
     userId, name, name_en, category, image, location, phone, google_map, rating, description
   })
@@ -44,18 +36,10 @@ router.get("/:restaurant_id/edit", (req, res) => {
     .catch(error => console.log(error))
 })
 
-router.put("/:restaurant_id", (req, res) => {
+router.put("/:restaurant_id", (req, res, next) => {
   const userId = req.user._id
   const _id = req.params.restaurant_id
-  const name = req.body.name
-  const name_en = req.body.name_en
-  const category = req.body.category
-  const image = req.body.image
-  const location = req.body.location
-  const phone = req.body.phone
-  const google_map = req.body.google_map
-  const rating = req.body.rating
-  const description = req.body.description
+  const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
   return Restaurant.findOne({ _id, userId })
     .then(restaurant => {
       restaurant.name = name
@@ -69,8 +53,8 @@ router.put("/:restaurant_id", (req, res) => {
       restaurant.description = description
       return restaurant.save()
     })
-    .then(() => res.redirect(`/restaurants/${id}`))
-    .catch(error => console.log(error))
+    .then(() => res.redirect(`/restaurants/${_id}`))
+    .catch(error => next(new Error(`some error ${error}`)))
 })
 
 router.delete("/:restaurant_id", (req, res) => {
